@@ -2,3 +2,18 @@ let date = document.querySelector('.date-span');
 
 let currentYear = new Date().getFullYear();
 date.textContent = currentYear;
+
+
+
+const hamburger = document.getElementById("hamburger");
+const navLinks = document.getElementById("navLinks");
+
+hamburger.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+});
+
+document.querySelectorAll(".nav-links a").forEach(link => {
+    link.addEventListener("click", () => {
+        navLinks.classList.remove("active");
+    });
+});
