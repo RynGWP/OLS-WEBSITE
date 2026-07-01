@@ -41,6 +41,13 @@ line-height:1.6;
     text-decoration:none;
     color:#333;
     font-weight:500;
+    transition: color 0.3s ease;
+    padding:5px;
+}
+
+.nav-links > li > a:hover {
+    background:rgb(211, 209, 209);
+    text-decoration: underline 1px rgb(172, 171, 171);
 }
 
 /* Hide hamburger on desktop */
