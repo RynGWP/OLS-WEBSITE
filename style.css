@@ -206,21 +206,14 @@ font-weight:500;
 } */
 
 .hero {
-
 height:70vh;
-
 display:flex;
-
 align-items:center;
-
 justify-content:center;
-
 text-align:center;
-
 padding:30px;
-
 background-image: url('/OLS\ V2.jpg');
-
+background-repeat: no-repeat;
 color:rgb(37, 37, 37);
 animation: switchPic linear infinite 13s;
 }
@@ -232,12 +225,14 @@ animation: switchPic linear infinite 13s;
     75% {  
          background-image: url('/OLS\ V2.jpg');   
          background-position: center;
-         background-size: cover;  
+         background-size: cover; 
+         background-repeat: no-repeat; 
     } 
     to {
          background-image: url('/OLS.jpg');
          background-position: center;
          background-size: cover;  
+         background-repeat: no-repeat; 
         
     }   
  }
