@@ -212,10 +212,7 @@ align-items:center;
 justify-content:center;
 text-align:center;
 padding:30px;
-background-image: url('/OLS\ V2.jpg');
-background-position: center;
-background-size: cover; 
-background-repeat: no-repeat; 
+
 color:rgb(37, 37, 37);
 animation: switchPic linear infinite 13s;
 }
