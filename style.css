@@ -17,9 +17,6 @@ line-height:1.6;
 }
 
 
-
-
-
 .navbar{
     display:flex;
     justify-content:space-between;
@@ -141,13 +138,10 @@ align-items:center;
 }
 
 #organization > div > div.card.head {
-    width: 330px;
+    width: 350px;
 }
 
-.card head > p {
-    font-size: .8rem;
 
-}
 
 .card > h3 {
     font-size: 1rem;
@@ -159,23 +153,6 @@ footer {
 }
 }
 
-/* .navbar{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-padding:18px 8%;
-
-background:#006633;
-
-color:white;
-
-flex-wrap:wrap;
-
-} */
 
 .logo{
 
@@ -185,25 +162,6 @@ font-weight:700;
 
 }
 
-/* .navbar ul{
-
-display:flex;
-
-list-style:none;
-
-gap:25px;
-
-} */
-
-/* .navbar a{
-
-color:white;
-
-text-decoration:none;
-
-font-weight:500;
-
-} */
 
 .hero {
 height:70vh;
@@ -212,46 +170,10 @@ align-items:center;
 justify-content:center;
 text-align:center;
 padding:30px;
-
 color:rgb(37, 37, 37);
-animation: switchPic linear infinite 13s;
+
 }
 
-@keyframes switchPic {
-    from {
-           background:linear-gradient(white);
-         }
-    75% {  
-         background-image: url('/OLS\ V2.jpg');   
-         background-position: center;
-         background-size: cover; 
-         background-repeat: no-repeat; 
-    } 
-    to {
-         background-image: url('/OLS.jpg');
-         background-position: center;
-         background-size: cover;  
-         background-repeat: no-repeat; 
-        
-    }   
- }
-
-
- .hero-content {
-    animation: blinkContent linear infinite 13s;
- }
-
-@keyframes blinkContent {
-    from {
-        
-    }
-    30% {
-        visibility: hidden;
-    }
-    to {
-        visibility: hidden;
-    }
-}
 
 
 
@@ -430,5 +352,15 @@ padding:25px;
 
 margin-top:50px;
 
+}
+
+#org-chart > div > div.card.head > img {
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    padding: 10px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
