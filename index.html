@@ -230,6 +230,1373 @@ Kabacan, Cotabato
 
 </section>
 
+
+<!-- OLS CHATBOT -->
+
+<section>
+
+<!-- ================================
+     OLS CHATBOT
+================================ -->
+
+<!-- Chatbot Toggle Button -->
+<button id="chatbotToggle" class="chatbot-toggle" title="Open OLS Assistant">
+    <i class="fas fa-robot"></i>
+</button>
+
+<!-- Chatbot Window -->
+<div id="chatbotWindow" class="chatbot-window">
+
+    <!-- Header -->
+    <div class="chatbot-header">
+        <div class="chatbot-title">
+            <div class="chatbot-avatar">
+                <i class="fas fa-balance-scale"></i>
+            </div>
+
+            <div>
+                <h6>OLS Assistant</h6>
+                <small>
+                    <span class="status-dot"></span>
+                    Online
+                </small>
+            </div>
+        </div>
+
+        <div class="chatbot-actions">
+            <button id="clearChat" title="Clear conversation">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+
+            <button id="minimizeChat" title="Minimize">
+                <i class="fas fa-minus"></i>
+            </button>
+        </div>
+    </div>
+
+
+    <!-- Messages -->
+    <div id="chatMessages" class="chatbot-messages">
+
+        <!-- Welcome message -->
+        <div class="message bot-message">
+            <div class="message-avatar">
+                <i class="fas fa-robot"></i>
+            </div>
+
+            <div class="message-content">
+                <div class="message-bubble">
+                    Hello! 👋 I'm the <strong>OLS Assistant</strong>.
+                    <br><br>
+                    How can I help you today?
+                </div>
+
+                <div class="message-time">
+                    Just now
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Questions -->
+        <div id="quickQuestions" class="quick-questions">
+
+            <button class="quick-question"
+                    data-question="What are the requirements for an MOA?">
+                📄 MOA Requirements
+            </button>
+
+            <button class="quick-question"
+                    data-question="How long does legal review take?">
+                ⚖️ Legal Review
+            </button>
+
+            <button class="quick-question"
+                    data-question="What are your office hours?">
+                🕐 Office Hours
+            </button>
+
+            <button class="quick-question"
+                    data-question="How can I contact OLS?">
+                📞 Contact OLS
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- Typing Indicator -->
+    <div id="typingIndicator" class="typing-indicator">
+
+        <div class="typing-avatar">
+            <i class="fas fa-robot"></i>
+        </div>
+
+        <div class="typing-bubble">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+    </div>
+
+
+    <!-- Input -->
+    <div class="chatbot-input-area">
+
+        <input
+            type="text"
+            id="chatInput"
+            class="chatbot-input"
+            placeholder="Type your question..."
+            autocomplete="off"
+        >
+
+        <button id="sendMessage" class="send-button">
+            <i class="fas fa-paper-plane"></i>
+        </button>
+
+    </div>
+
+</div>
+
+
+<style>
+
+/* =====================================
+   CHATBOT TOGGLE
+===================================== */
+
+.chatbot-toggle {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+
+    width: 60px;
+    height: 60px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #007b8a;
+    color: white;
+
+    font-size: 22px;
+
+    box-shadow: 0 5px 20px rgba(0,0,0,.25);
+
+    cursor: pointer;
+
+    z-index: 9999;
+
+    transition: all .3s ease;
+}
+
+.chatbot-toggle:hover {
+    transform: scale(1.08);
+}
+
+
+/* =====================================
+   CHAT WINDOW
+===================================== */
+
+.chatbot-window {
+    position: fixed;
+
+    right: 25px;
+    bottom: 95px;
+
+    width: 380px;
+    height: 560px;
+
+    background: white;
+
+    border-radius: 15px;
+
+    box-shadow: 0 10px 40px rgba(0,0,0,.25);
+
+    overflow: hidden;
+
+    display: none;
+
+    flex-direction: column;
+
+    z-index: 9998;
+}
+
+
+/* =====================================
+   HEADER
+===================================== */
+
+.chatbot-header {
+    height: 70px;
+
+    background: #007b8a;
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 12px 15px;
+}
+
+.chatbot-title {
+    display: flex;
+    align-items: center;
+}
+
+.chatbot-avatar {
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+
+    background: white;
+    color: #007b8a;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 10px;
+}
+
+.chatbot-title h6 {
+    margin: 0;
+    font-weight: 600;
+}
+
+.chatbot-title small {
+    opacity: .9;
+}
+
+.status-dot {
+    display: inline-block;
+
+    width: 8px;
+    height: 8px;
+
+    background: #28a745;
+
+    border-radius: 50%;
+
+    margin-right: 4px;
+}
+
+.chatbot-actions {
+    display: flex;
+    gap: 5px;
+}
+
+.chatbot-actions button {
+    border: none;
+    background: transparent;
+    color: white;
+
+    width: 32px;
+    height: 32px;
+
+    cursor: pointer;
+
+    border-radius: 5px;
+}
+
+.chatbot-actions button:hover {
+    background: rgba(255,255,255,.15);
+}
+
+
+/* =====================================
+   MESSAGES
+===================================== */
+
+.chatbot-messages {
+    flex: 1;
+
+    overflow-y: auto;
+
+    padding: 15px;
+
+    background: #f5f7f9;
+}
+
+.message {
+    display: flex;
+
+    margin-bottom: 15px;
+}
+
+.message-avatar {
+    min-width: 32px;
+    height: 32px;
+
+    border-radius: 50%;
+
+    background: #007b8a;
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 13px;
+
+    margin-right: 8px;
+}
+
+.message-content {
+    max-width: 80%;
+}
+
+.message-bubble {
+    background: white;
+
+    padding: 10px 13px;
+
+    border-radius: 12px;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+    box-shadow: 0 1px 3px rgba(0,0,0,.08);
+}
+
+.message-time {
+    font-size: 10px;
+
+    color: #888;
+
+    margin-top: 4px;
+}
+
+
+/* =====================================
+   USER MESSAGE
+===================================== */
+
+.user-message {
+    justify-content: flex-end;
+}
+
+.user-message .message-content {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-end;
+}
+
+.user-message .message-bubble {
+    background: #007b8a;
+
+    color: white;
+
+    border-radius: 12px 12px 2px 12px;
+}
+
+.user-message .message-time {
+    text-align: right;
+}
+
+
+/* =====================================
+   QUICK QUESTIONS
+===================================== */
+
+.quick-questions {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 7px;
+
+    margin-top: 10px;
+
+    margin-bottom: 10px;
+}
+
+.quick-question {
+    border: 1px solid #007b8a;
+
+    color: #007b8a;
+
+    background: white;
+
+    padding: 7px 10px;
+
+    border-radius: 15px;
+
+    font-size: 12px;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.quick-question:hover {
+    background: #007b8a;
+
+    color: white;
+}
+
+
+/* =====================================
+   TYPING INDICATOR
+===================================== */
+
+.typing-indicator {
+    display: none;
+
+    padding: 5px 15px 10px;
+
+    align-items: center;
+}
+
+.typing-avatar {
+    width: 32px;
+    height: 32px;
+
+    border-radius: 50%;
+
+    background: #007b8a;
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 8px;
+
+    font-size: 13px;
+}
+
+.typing-bubble {
+    background: white;
+
+    border-radius: 12px;
+
+    padding: 10px 12px;
+}
+
+.typing-bubble span {
+    display: inline-block;
+
+    width: 6px;
+    height: 6px;
+
+    background: #888;
+
+    border-radius: 50%;
+
+    margin: 0 2px;
+
+    animation: typing 1.2s infinite;
+}
+
+.typing-bubble span:nth-child(2) {
+    animation-delay: .2s;
+}
+
+.typing-bubble span:nth-child(3) {
+    animation-delay: .4s;
+}
+
+@keyframes typing {
+
+    0%, 60%, 100% {
+        transform: translateY(0);
+    }
+
+    30% {
+        transform: translateY(-5px);
+    }
+
+}
+
+
+/* =====================================
+   INPUT
+===================================== */
+
+.chatbot-input-area {
+    display: flex;
+
+    padding: 10px;
+
+    background: white;
+
+    border-top: 1px solid #ddd;
+}
+
+.chatbot-input {
+    flex: 1;
+
+    border: 1px solid #ddd;
+
+    border-radius: 20px;
+
+    padding: 9px 14px;
+
+    outline: none;
+
+    font-size: 14px;
+}
+
+.chatbot-input:focus {
+    border-color: #007b8a;
+}
+
+.send-button {
+    width: 42px;
+    height: 42px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    margin-left: 7px;
+
+    background: #007b8a;
+
+    color: white;
+
+    cursor: pointer;
+}
+
+.send-button:hover {
+    background: #006875;
+}
+
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media (max-width: 500px) {
+
+    .chatbot-window {
+        right: 10px;
+        bottom: 85px;
+
+        width: calc(100% - 20px);
+
+        height: 70vh;
+    }
+
+    .chatbot-toggle {
+        right: 15px;
+        bottom: 15px;
+    }
+
+}
+
+</style>
+
+
+<script>
+
+/* =====================================
+   OLS CHATBOT
+===================================== */
+
+(function () {
+
+    "use strict";
+
+
+    /* =====================================
+       ELEMENTS
+    ===================================== */
+
+    const chatbotToggle =
+        document.getElementById("chatbotToggle");
+
+    const chatbotWindow =
+        document.getElementById("chatbotWindow");
+
+    const minimizeChat =
+        document.getElementById("minimizeChat");
+
+    const clearChat =
+        document.getElementById("clearChat");
+
+    const chatMessages =
+        document.getElementById("chatMessages");
+
+    const chatInput =
+        document.getElementById("chatInput");
+
+    const sendMessage =
+        document.getElementById("sendMessage");
+
+    const typingIndicator =
+        document.getElementById("typingIndicator");
+
+
+    /* =====================================
+       STORAGE KEY
+    ===================================== */
+
+    const STORAGE_KEY = "ols_chatbot_history";
+
+
+    /* =====================================
+       OLS KNOWLEDGE BASE
+    ===================================== */
+
+    const knowledgeBase = [
+
+        {
+            keywords: [
+                "hello",
+                "hi",
+                "hey",
+                "good morning",
+                "good afternoon",
+                "good evening"
+            ],
+
+            response:
+                "Hello! 👋 Welcome to the Office of Legal Services. How can I assist you today?"
+        },
+
+
+        {
+            keywords: [
+                "moa",
+                "memorandum of agreement"
+            ],
+
+            response:
+                "For an MOA, please ensure that the document contains the complete names and addresses of the parties, authorized representatives, purpose of the agreement, responsibilities of each party, effectivity, termination provisions, signatures, and other required supporting documents. The completed document may then be submitted to the Office of Legal Services for review."
+        },
+
+
+        {
+            keywords: [
+                "mou",
+                "memorandum of understanding"
+            ],
+
+            response:
+                "An MOU should clearly identify the parties, purpose, scope of cooperation, responsibilities, duration, termination provisions, and authorized representatives. Please submit the complete document and supporting requirements for legal review."
+        },
+
+
+        {
+            keywords: [
+                "legal review",
+                "review",
+                "reviewing",
+                "legal checking"
+            ],
+
+            response:
+                "The Office of Legal Services shall review the submitted documents within 1 to 7 working days."
+        },
+
+
+        {
+            keywords: [
+                "how long",
+                "duration",
+                "days",
+                "working days"
+            ],
+
+            response:
+                "For OLS review, documents that are complete and have already been reviewed by the concerned office/adviser may generally be processed within the prescribed review period. Incomplete submissions may require additional time."
+        },
+
+
+        {
+            keywords: [
+                "office hours",
+                "opening hours",
+                "schedule",
+                "open"
+            ],
+
+            response:
+                "The Office of Legal Services generally operates during regular University working hours. Please check the official University/OLS announcements for the latest office schedule."
+        },
+
+
+        {
+            keywords: [
+                "contact",
+                "telephone",
+                "phone",
+                "email",
+                "contact ols"
+            ],
+
+            response:
+                "This is our Contact informations \n" +
+                "Email: codi@usm.edu.ph \n" +
+                "Phone: 0968 181 0942"
+        },
+
+
+        {
+            keywords: [
+                "document",
+                "submit",
+                "submission",
+                "submit document"
+            ],
+
+            response:
+                "Please submit a complete copy of the document together with the necessary supporting documents. Documents should preferably be reviewed by the concerned office/adviser before submission to OLS."
+        },
+
+
+        {
+            keywords: [
+                "status",
+                "tracking",
+                "tracking number"
+            ],
+
+            response:
+                "You may use the document tracking number to check the status of your submitted document. If you need assistance regarding a specific document, please provide the tracking number to the authorized OLS personnel."
+        },
+
+
+        {
+            keywords: [
+                "ready for pick-up",
+                "ready for pickup",
+                "pickup",
+                "pick up"
+            ],
+
+            response:
+                "If your document is marked 'Ready for Pick-up,' it means the document is available for release or collection, subject to the applicable release procedures."
+        },
+
+
+        {
+            keywords: [
+                "thank you",
+                "thanks"
+            ],
+
+            response:
+                "You're welcome! 😊 If you have another OLS-related question, feel free to ask. By the way kumain ka na ba?"
+        },
+
+        {
+            keywords: [
+                "complain",
+                "complaint",
+                "reklamo"
+                
+            ],
+
+            response:
+                "Students shall submit an Affidavit of Complaint / Complaint letter to the USM Office of Student Affairs."
+        },
+
+        {
+            keywords: [
+                "notarized",
+                "notarized sa ols",
+                "notarized sa office nyo",
+                "notarize",
+                "magpanotarize",
+                "notaryo",
+
+                
+            ],
+
+           response:
+            "Notarization of USM related documents is prohibited.\n\n" +
+            "However, we can notarize any personal documents such as Affidavits, Authorization Letter, and Special Power of Attorney.\n\n" +
+            "Price of Notarization:\n" +
+            "• For Students: ₱50 per document\n" +
+            "• For Faculty and Staff: ₱300 per document.\n" +
+            "• For Beautiful Girls: Free lang po, Kahit kiss lang pwede na."
+
+        }
+    ];
+
+
+    /* =====================================
+       DEFAULT RESPONSE
+    ===================================== */
+
+    const defaultResponses = [
+
+        "I'm sorry, I couldn't find a specific answer to that question. You may try asking about MOA requirements, legal review, document submission, document status, or OLS office hours.",
+
+        "I don't have enough information to answer that accurately. Please try rephrasing your question or choose one of the suggested questions.",
+
+        "I'm currently limited to OLS-related information. Please ask me about legal document review, MOAs, MOUs, submissions, or document status."
+
+    ];
+
+
+    /* =====================================
+       OPEN CHAT
+    ===================================== */
+
+    chatbotToggle.addEventListener("click", function () {
+
+        chatbotWindow.style.display = "flex";
+
+        chatbotToggle.style.display = "none";
+
+        chatInput.focus();
+
+    });
+
+
+    /* =====================================
+       MINIMIZE CHAT
+    ===================================== */
+
+    minimizeChat.addEventListener("click", function () {
+
+        chatbotWindow.style.display = "none";
+
+        chatbotToggle.style.display = "flex";
+
+    });
+
+
+    /* =====================================
+       SEND MESSAGE
+    ===================================== */
+
+    function sendUserMessage() {
+
+        const message =
+            chatInput.value.trim();
+
+        if (!message) return;
+
+
+        addMessage(
+            message,
+            "user"
+        );
+
+
+        saveMessage(
+            message,
+            "user"
+        );
+
+
+        chatInput.value = "";
+
+
+        showTyping();
+
+
+        setTimeout(function () {
+
+            hideTyping();
+
+
+            const response =
+                getBotResponse(message);
+
+
+            addMessage(
+                response,
+                "bot"
+            );
+
+
+            saveMessage(
+                response,
+                "bot"
+            );
+
+        }, 700);
+
+    }
+
+
+    sendMessage.addEventListener(
+        "click",
+        sendUserMessage
+    );
+
+
+    /* =====================================
+       ENTER KEY
+    ===================================== */
+
+    chatInput.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (
+                event.key === "Enter" &&
+                !event.shiftKey
+            ) {
+
+                event.preventDefault();
+
+                sendUserMessage();
+
+            }
+
+        }
+    );
+
+
+    /* =====================================
+       GET BOT RESPONSE
+    ===================================== */
+
+    function getBotResponse(message) {
+
+        const text =
+            message
+                .toLowerCase()
+                .replace(/[^\w\s]/gi, " ");
+
+
+        let bestMatch = null;
+
+        let highestScore = 0;
+
+
+        knowledgeBase.forEach(function (item) {
+
+            let score = 0;
+
+
+            item.keywords.forEach(function (keyword) {
+
+                if (
+                    text.includes(
+                        keyword.toLowerCase()
+                    )
+                ) {
+
+                    score += keyword.split(" ").length;
+
+                }
+
+            });
+
+
+            if (score > highestScore) {
+
+                highestScore = score;
+
+                bestMatch = item;
+
+            }
+
+        });
+
+
+        if (bestMatch) {
+
+            return bestMatch.response;
+
+        }
+
+
+        return defaultResponses[
+            Math.floor(
+                Math.random() *
+                defaultResponses.length
+            )
+        ];
+
+    }
+
+
+    /* =====================================
+       ADD MESSAGE
+    ===================================== */
+
+    function addMessage(
+        message,
+        sender
+    ) {
+
+        const wrapper =
+            document.createElement("div");
+
+
+        wrapper.className =
+            "message " +
+            (sender === "user"
+                ? "user-message"
+                : "bot-message");
+
+
+        const avatar =
+            document.createElement("div");
+
+
+        avatar.className =
+            "message-avatar";
+
+
+        avatar.innerHTML =
+            sender === "user"
+                ? '<i class="fas fa-user"></i>'
+                : '<i class="fas fa-robot"></i>';
+
+
+        const content =
+            document.createElement("div");
+
+
+        content.className =
+            "message-content";
+
+
+        const bubble =
+            document.createElement("div");
+
+
+        bubble.className =
+            "message-bubble";
+
+
+        bubble.innerHTML =
+            escapeHtml(message)
+                .replace(/\n/g, "<br>");
+
+
+        const time =
+            document.createElement("div");
+
+
+        time.className =
+            "message-time";
+
+
+        time.textContent =
+            getCurrentTime();
+
+
+        content.appendChild(bubble);
+
+        content.appendChild(time);
+
+
+        if (sender === "user") {
+
+            wrapper.appendChild(content);
+
+        } else {
+
+            wrapper.appendChild(avatar);
+
+            wrapper.appendChild(content);
+
+        }
+
+
+        chatMessages.appendChild(wrapper);
+
+
+        scrollToBottom();
+
+    }
+
+
+    /* =====================================
+       ESCAPE HTML
+    ===================================== */
+
+    function escapeHtml(text) {
+
+        const div =
+            document.createElement("div");
+
+        div.textContent = text;
+
+        return div.innerHTML;
+
+    }
+
+
+    /* =====================================
+       CURRENT TIME
+    ===================================== */
+
+    function getCurrentTime() {
+
+        return new Date()
+            .toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit"
+            });
+
+    }
+
+
+    /* =====================================
+       TYPING
+    ===================================== */
+
+    function showTyping() {
+
+        typingIndicator.style.display =
+            "flex";
+
+        scrollToBottom();
+
+    }
+
+
+    function hideTyping() {
+
+        typingIndicator.style.display =
+            "none";
+
+    }
+
+
+    /* =====================================
+       SCROLL
+    ===================================== */
+
+    function scrollToBottom() {
+
+        setTimeout(function () {
+
+            chatMessages.scrollTop =
+                chatMessages.scrollHeight;
+
+        }, 50);
+
+    }
+
+
+    /* =====================================
+       SAVE CHAT
+    ===================================== */
+
+    function saveMessage(
+        message,
+        sender
+    ) {
+
+        const history =
+            JSON.parse(
+                localStorage.getItem(
+                    STORAGE_KEY
+                ) || "[]"
+            );
+
+
+        history.push({
+
+            message: message,
+
+            sender: sender,
+
+            time: new Date().toISOString()
+
+        });
+
+
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(history)
+        );
+
+    }
+
+
+    /* =====================================
+       LOAD CHAT
+    ===================================== */
+
+    function loadChat() {
+
+        const history =
+            JSON.parse(
+                localStorage.getItem(
+                    STORAGE_KEY
+                ) || "[]"
+            );
+
+
+        history.forEach(function (item) {
+
+            addMessage(
+                item.message,
+                item.sender
+            );
+
+        });
+
+    }
+
+
+    /* =====================================
+       CLEAR CHAT
+    ===================================== */
+
+    clearChat.addEventListener(
+        "click",
+        function () {
+
+            if (
+                !confirm(
+                    "Clear your chatbot conversation?"
+                )
+            ) {
+
+                return;
+
+            }
+
+
+            localStorage.removeItem(
+                STORAGE_KEY
+            );
+
+
+            chatMessages.innerHTML = "";
+
+
+            addMessage(
+                "Hello! 👋 I'm the OLS Assistant. How can I help you today?",
+                "bot"
+            );
+
+
+            addQuickQuestions();
+
+        }
+    );
+
+
+    /* =====================================
+       QUICK QUESTIONS
+    ===================================== */
+
+    function addQuickQuestions() {
+
+        const container =
+            document.createElement("div");
+
+
+        container.id =
+            "quickQuestions";
+
+
+        container.className =
+            "quick-questions";
+
+
+        const questions = [
+
+            "What are the requirements for an MOA?",
+
+            "How long does legal review take?",
+
+            "What are your office hours?",
+
+            "How can I contact OLS?"
+
+        ];
+
+
+        questions.forEach(function(question) {
+
+            const button =
+                document.createElement("button");
+
+
+            button.className =
+                "quick-question";
+
+
+            button.dataset.question =
+                question;
+
+
+            button.textContent =
+                question;
+
+
+            button.addEventListener(
+                "click",
+                function() {
+
+                    chatInput.value =
+                        question;
+
+                    sendUserMessage();
+
+                }
+            );
+
+
+            container.appendChild(button);
+
+        });
+
+
+        chatMessages.appendChild(
+            container
+        );
+
+    }
+
+
+    /* =====================================
+       EXISTING QUICK QUESTIONS
+    ===================================== */
+
+    document
+        .querySelectorAll(".quick-question")
+        .forEach(function(button) {
+
+            button.addEventListener(
+                "click",
+                function() {
+
+                    chatInput.value =
+                        this.dataset.question;
+
+                    sendUserMessage();
+
+                }
+            );
+
+        });
+
+
+    /* =====================================
+       INITIALIZE
+    ===================================== */
+
+    loadChat();
+
+})();
+
+</script>
+
+
+</section>
+
+
 <footer>
 
 <p>
@@ -243,6 +1610,799 @@ University of Southern Mindanao
 </footer>
 
 <script src="index.js"></script>
+
+<!-- OLS CHATBOT -->
+<script>
+
+/* =====================================
+   OLS CHATBOT
+===================================== */
+
+(function () {
+
+    "use strict";
+
+
+    /* =====================================
+       ELEMENTS
+    ===================================== */
+
+    const chatbotToggle =
+        document.getElementById("chatbotToggle");
+
+    const chatbotWindow =
+        document.getElementById("chatbotWindow");
+
+    const minimizeChat =
+        document.getElementById("minimizeChat");
+
+    const clearChat =
+        document.getElementById("clearChat");
+
+    const chatMessages =
+        document.getElementById("chatMessages");
+
+    const chatInput =
+        document.getElementById("chatInput");
+
+    const sendMessage =
+        document.getElementById("sendMessage");
+
+    const typingIndicator =
+        document.getElementById("typingIndicator");
+
+
+    /* =====================================
+       STORAGE KEY
+    ===================================== */
+
+    const STORAGE_KEY = "ols_chatbot_history";
+
+
+    /* =====================================
+       OLS KNOWLEDGE BASE
+    ===================================== */
+
+    const knowledgeBase = [
+
+        {
+            keywords: [
+                "hello",
+                "hi",
+                "hey",
+                "good morning",
+                "good afternoon",
+                "good evening"
+            ],
+
+            response:
+                "Hello! 👋 Welcome to the Office of Legal Services. How can I assist you today?"
+        },
+
+
+        {
+            keywords: [
+                "moa",
+                "memorandum of agreement"
+            ],
+
+            response:
+                "For an MOA, please ensure that the document contains the complete names and addresses of the parties, authorized representatives, purpose of the agreement, responsibilities of each party, effectivity, termination provisions, signatures, and other required supporting documents. The completed document may then be submitted to the Office of Legal Services for review."
+        },
+
+
+        {
+            keywords: [
+                "mou",
+                "memorandum of understanding"
+            ],
+
+            response:
+                "An MOU should clearly identify the parties, purpose, scope of cooperation, responsibilities, duration, termination provisions, and authorized representatives. Please submit the complete document and supporting requirements for legal review."
+        },
+
+
+        {
+            keywords: [
+                "legal review",
+                "review",
+                "reviewing",
+                "legal checking"
+            ],
+
+            response:
+                "The Office of Legal Services shall review the submitted documents within 1 to 7 working days."
+        },
+
+
+        {
+            keywords: [
+                "how long",
+                "duration",
+                "days",
+                "working days"
+            ],
+
+            response:
+                "For OLS review, documents that are complete and have already been reviewed by the concerned office/adviser may generally be processed within the prescribed review period. Incomplete submissions may require additional time."
+        },
+
+
+        {
+            keywords: [
+                "office hours",
+                "opening hours",
+                "schedule",
+                "open"
+            ],
+
+            response:
+                "The Office of Legal Services generally operates during regular University working hours. Please check the official University/OLS announcements for the latest office schedule."
+        },
+
+
+        {
+            keywords: [
+                "contact",
+                "telephone",
+                "phone",
+                "email",
+                "contact ols"
+            ],
+
+            response:
+                "This is our Contact informations \n" +
+                "Email: codi@usm.edu.ph \n" +
+                "Phone: 0968 181 0942"
+        },
+
+
+        {
+            keywords: [
+                "document",
+                "submit",
+                "submission",
+                "submit document"
+            ],
+
+            response:
+                "Please submit a complete copy of the document together with the necessary supporting documents. Documents should preferably be reviewed by the concerned office/adviser before submission to OLS."
+        },
+
+
+        {
+            keywords: [
+                "status",
+                "tracking",
+                "tracking number"
+            ],
+
+            response:
+                "You may use the document tracking number to check the status of your submitted document. If you need assistance regarding a specific document, please provide the tracking number to the authorized OLS personnel."
+        },
+
+
+        {
+            keywords: [
+                "ready for pick-up",
+                "ready for pickup",
+                "pickup",
+                "pick up"
+            ],
+
+            response:
+                "If your document is marked 'Ready for Pick-up,' it means the document is available for release or collection, subject to the applicable release procedures."
+        },
+
+
+        {
+            keywords: [
+                "thank you",
+                "thanks"
+            ],
+
+            response:
+                "You're welcome! 😊 If you have another OLS-related question, feel free to ask. By the way kumain ka na ba?"
+        },
+
+        {
+            keywords: [
+                "complain",
+                "complaint",
+                "reklamo"
+                
+            ],
+
+            response:
+                "Students shall submit an Affidavit of Complaint / Complaint letter to the USM Office of Student Affairs."
+        },
+
+        {
+            keywords: [
+                "notarized",
+                "notarized sa ols",
+                "notarized sa office nyo",
+                "notarize",
+                "magpanotarize",
+                "notaryo",
+
+                
+            ],
+
+           response:
+            "Notarization of USM related documents is prohibited.\n\n" +
+            "However, we can notarize any personal documents such as Affidavits, Authorization Letter, and Special Power of Attorney.\n\n" +
+            "Price of Affidavit:\n" +
+            "• For Students: ₱50 per document\n" +
+            "• For Faculty and Staff: ₱300 per document.\n" +
+            "• For Beautiful Girls: Free lang po, Kahit kiss lang pwede na."
+
+        }
+    ];
+
+
+    /* =====================================
+       DEFAULT RESPONSE
+    ===================================== */
+
+    const defaultResponses = [
+
+        "I'm sorry, I couldn't find a specific answer to that question. You may try asking about MOA requirements, legal review, document submission, document status, or OLS office hours.",
+
+        "I don't have enough information to answer that accurately. Please try rephrasing your question or choose one of the suggested questions.",
+
+        "I'm currently limited to OLS-related information. Please ask me about legal document review, MOAs, MOUs, submissions, or document status."
+
+    ];
+
+
+    /* =====================================
+       OPEN CHAT
+    ===================================== */
+
+    chatbotToggle.addEventListener("click", function () {
+
+        chatbotWindow.style.display = "flex";
+
+        chatbotToggle.style.display = "none";
+
+        chatInput.focus();
+
+    });
+
+
+    /* =====================================
+       MINIMIZE CHAT
+    ===================================== */
+
+    minimizeChat.addEventListener("click", function () {
+
+        chatbotWindow.style.display = "none";
+
+        chatbotToggle.style.display = "flex";
+
+    });
+
+
+    /* =====================================
+       SEND MESSAGE
+    ===================================== */
+
+    function sendUserMessage() {
+
+        const message =
+            chatInput.value.trim();
+
+        if (!message) return;
+
+
+        addMessage(
+            message,
+            "user"
+        );
+
+
+        saveMessage(
+            message,
+            "user"
+        );
+
+
+        chatInput.value = "";
+
+
+        showTyping();
+
+
+        setTimeout(function () {
+
+            hideTyping();
+
+
+            const response =
+                getBotResponse(message);
+
+
+            addMessage(
+                response,
+                "bot"
+            );
+
+
+            saveMessage(
+                response,
+                "bot"
+            );
+
+        }, 700);
+
+    }
+
+
+    sendMessage.addEventListener(
+        "click",
+        sendUserMessage
+    );
+
+
+    /* =====================================
+       ENTER KEY
+    ===================================== */
+
+    chatInput.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (
+                event.key === "Enter" &&
+                !event.shiftKey
+            ) {
+
+                event.preventDefault();
+
+                sendUserMessage();
+
+            }
+
+        }
+    );
+
+
+    /* =====================================
+       GET BOT RESPONSE
+    ===================================== */
+
+    function getBotResponse(message) {
+
+        const text =
+            message
+                .toLowerCase()
+                .replace(/[^\w\s]/gi, " ");
+
+
+        let bestMatch = null;
+
+        let highestScore = 0;
+
+
+        knowledgeBase.forEach(function (item) {
+
+            let score = 0;
+
+
+            item.keywords.forEach(function (keyword) {
+
+                if (
+                    text.includes(
+                        keyword.toLowerCase()
+                    )
+                ) {
+
+                    score += keyword.split(" ").length;
+
+                }
+
+            });
+
+
+            if (score > highestScore) {
+
+                highestScore = score;
+
+                bestMatch = item;
+
+            }
+
+        });
+
+
+        if (bestMatch) {
+
+            return bestMatch.response;
+
+        }
+
+
+        return defaultResponses[
+            Math.floor(
+                Math.random() *
+                defaultResponses.length
+            )
+        ];
+
+    }
+
+
+    /* =====================================
+       ADD MESSAGE
+    ===================================== */
+
+    function addMessage(
+        message,
+        sender
+    ) {
+
+        const wrapper =
+            document.createElement("div");
+
+
+        wrapper.className =
+            "message " +
+            (sender === "user"
+                ? "user-message"
+                : "bot-message");
+
+
+        const avatar =
+            document.createElement("div");
+
+
+        avatar.className =
+            "message-avatar";
+
+
+        avatar.innerHTML =
+            sender === "user"
+                ? '<i class="fas fa-user"></i>'
+                : '<i class="fas fa-robot"></i>';
+
+
+        const content =
+            document.createElement("div");
+
+
+        content.className =
+            "message-content";
+
+
+        const bubble =
+            document.createElement("div");
+
+
+        bubble.className =
+            "message-bubble";
+
+
+        bubble.innerHTML =
+            escapeHtml(message)
+                .replace(/\n/g, "<br>");
+
+
+        const time =
+            document.createElement("div");
+
+
+        time.className =
+            "message-time";
+
+
+        time.textContent =
+            getCurrentTime();
+
+
+        content.appendChild(bubble);
+
+        content.appendChild(time);
+
+
+        if (sender === "user") {
+
+            wrapper.appendChild(content);
+
+        } else {
+
+            wrapper.appendChild(avatar);
+
+            wrapper.appendChild(content);
+
+        }
+
+
+        chatMessages.appendChild(wrapper);
+
+
+        scrollToBottom();
+
+    }
+
+
+    /* =====================================
+       ESCAPE HTML
+    ===================================== */
+
+    function escapeHtml(text) {
+
+        const div =
+            document.createElement("div");
+
+        div.textContent = text;
+
+        return div.innerHTML;
+
+    }
+
+
+    /* =====================================
+       CURRENT TIME
+    ===================================== */
+
+    function getCurrentTime() {
+
+        return new Date()
+            .toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit"
+            });
+
+    }
+
+
+    /* =====================================
+       TYPING
+    ===================================== */
+
+    function showTyping() {
+
+        typingIndicator.style.display =
+            "flex";
+
+        scrollToBottom();
+
+    }
+
+
+    function hideTyping() {
+
+        typingIndicator.style.display =
+            "none";
+
+    }
+
+
+    /* =====================================
+       SCROLL
+    ===================================== */
+
+    function scrollToBottom() {
+
+        setTimeout(function () {
+
+            chatMessages.scrollTop =
+                chatMessages.scrollHeight;
+
+        }, 50);
+
+    }
+
+
+    /* =====================================
+       SAVE CHAT
+    ===================================== */
+
+    function saveMessage(
+        message,
+        sender
+    ) {
+
+        const history =
+            JSON.parse(
+                localStorage.getItem(
+                    STORAGE_KEY
+                ) || "[]"
+            );
+
+
+        history.push({
+
+            message: message,
+
+            sender: sender,
+
+            time: new Date().toISOString()
+
+        });
+
+
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(history)
+        );
+
+    }
+
+
+    /* =====================================
+       LOAD CHAT
+    ===================================== */
+
+    function loadChat() {
+
+        const history =
+            JSON.parse(
+                localStorage.getItem(
+                    STORAGE_KEY
+                ) || "[]"
+            );
+
+
+        history.forEach(function (item) {
+
+            addMessage(
+                item.message,
+                item.sender
+            );
+
+        });
+
+    }
+
+
+    /* =====================================
+       CLEAR CHAT
+    ===================================== */
+
+    clearChat.addEventListener(
+        "click",
+        function () {
+
+            if (
+                !confirm(
+                    "Clear your chatbot conversation?"
+                )
+            ) {
+
+                return;
+
+            }
+
+
+            localStorage.removeItem(
+                STORAGE_KEY
+            );
+
+
+            chatMessages.innerHTML = "";
+
+
+            addMessage(
+                "Hello! 👋 I'm the OLS Assistant. How can I help you today?",
+                "bot"
+            );
+
+
+            addQuickQuestions();
+
+        }
+    );
+
+
+    /* =====================================
+       QUICK QUESTIONS
+    ===================================== */
+
+    function addQuickQuestions() {
+
+        const container =
+            document.createElement("div");
+
+
+        container.id =
+            "quickQuestions";
+
+
+        container.className =
+            "quick-questions";
+
+
+        const questions = [
+
+            "What are the requirements for an MOA?",
+
+            "How long does legal review take?",
+
+            "What are your office hours?",
+
+            "How can I contact OLS?"
+
+        ];
+
+
+        questions.forEach(function(question) {
+
+            const button =
+                document.createElement("button");
+
+
+            button.className =
+                "quick-question";
+
+
+            button.dataset.question =
+                question;
+
+
+            button.textContent =
+                question;
+
+
+            button.addEventListener(
+                "click",
+                function() {
+
+                    chatInput.value =
+                        question;
+
+                    sendUserMessage();
+
+                }
+            );
+
+
+            container.appendChild(button);
+
+        });
+
+
+        chatMessages.appendChild(
+            container
+        );
+
+    }
+
+
+    /* =====================================
+       EXISTING QUICK QUESTIONS
+    ===================================== */
+
+    document
+        .querySelectorAll(".quick-question")
+        .forEach(function(button) {
+
+            button.addEventListener(
+                "click",
+                function() {
+
+                    chatInput.value =
+                        this.dataset.question;
+
+                    sendUserMessage();
+
+                }
+            );
+
+        });
+
+
+    /* =====================================
+       INITIALIZE
+    ===================================== */
+
+    loadChat();
+
+})();
+
+</script>
+
 
 
 </body>
